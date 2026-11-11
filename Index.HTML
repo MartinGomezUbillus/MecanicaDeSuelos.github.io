@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GeoLab Virtual | Ingeniería de Cimentaciones</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- BARRA DE NAVEGACIÓN -->
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <span class="logo-badge">GEOLAB</span>
+                <span class="logo-text">Laboratorio Virtual de Mecánica de Suelos</span>
+            </div>
+            <nav class="nav-links">
+                <a href="#inicio">Vista General</a>
+                <a href="#modulo-1">Módulo 1: Clasificación</a>
+                <a href="#modulo-2">Módulo 2: Esfuerzos</a>
+                <a href="#modulo-3">Módulo 3: Permeabilidad</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- PORTADA PRINCIPAL CON LAS 3 SECCIONES -->
+    <section id="inicio" class="hero-section">
+        <div class="hero-content">
+            <span class="tag-course">Sección 6I - Grupo 2 | Proyecto de Cimentación</span>
+            <h1>Evaluación Geotécnica e Interpretación de Suelos</h1>
+            <p>Plataforma interactiva para clasificación granulométrica, análisis de esfuerzos efectivos y flujo de agua en cimentaciones.</p>
+
+            <div class="modules-grid">
+                <div class="module-card active-module" onclick="irAModulo('modulo-1')">
+                    <div class="module-img-placeholder">
+                        <!-- IMAGEN 1: Puedes reemplazar por <img src="img/tamices.jpg" alt="Tamices"> -->
+                        <span>MÓDULO 01</span>
+                    </div>
+                    <div class="module-card-body">
+                        <h3>Clasificación SUCS y AASHTO</h3>
+                        <p>Cálculo granulométrico automatizado, curva semilogarítmica suave y límites de consistencia.</p>
+                        <span class="btn-card">Abrir Módulo 1 →</span>
+                    </div>
+                </div>
+
+                <div class="module-card" onclick="irAModulo('modulo-2')">
+                    <div class="module-img-placeholder">
+                        <!-- IMAGEN 2: Puedes reemplazar por <img src="img/estratos.jpg" alt="Estratos"> -->
+                        <span>MÓDULO 02</span>
+                    </div>
+                    <div class="module-card-body">
+                        <h3>Perfil Estratigráfico y Esfuerzos</h3>
+                        <p>Cálculo de esfuerzo total, presión de poros por nivel freático y esfuerzo efectivo.</p>
+                        <span class="btn-card">Ver Sección 2 →</span>
+                    </div>
+                </div>
+
+                <div class="module-card" onclick="irAModulo('modulo-3')">
+                    <div class="module-img-placeholder">
+                        <!-- IMAGEN 3: Puedes reemplazar por <img src="img/flujo.jpg" alt="Permeabilidad"> -->
+                        <span>MÓDULO 03</span>
+                    </div>
+                    <div class="module-card-body">
+                        <h3>Permeabilidad y Flujo (Darcy)</h3>
+                        <p>Velocidad de filtración hacia la excavación y caudal de diseño para cimentación.</p>
+                        <span class="btn-card">Ver Sección 3 →</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main class="main-container">
+        <!-- =================================================================
+             SECCIÓN 1: MÓDULO 1 - CLASIFICACIÓN DE SUELOS (SUCS Y AASHTO)
+        ================================================================== -->
+        <section id="modulo-1" class="section-block">
+            <div class="section-header">
+                <div>
+                    <span class="section-badge">SECCIÓN 01</span>
+                    <h2>Módulo 1: Clasificación Geotécnica (SUCS y AASHTO)</h2>
+                </div>
+                <div class="mode-switch">
+                    <button id="btn-modo-tabla" class="mode-btn active" onclick="cambiarModoM1('tabla')">
+                        Opción A: Con Tabla Granulométrica
+                    </button>
+                    <button id="btn-modo-directo" class="mode-btn" onclick="cambiarModoM1('directo')">
+                        Opción B: Con Datos Directos (% Pasa)
+                    </button>
+                </div>
+            </div>
+
+            <!-- SUB-VISTA A: TABLA GRANULOMÉTRICA + CURVA DEBAJO -->
+            <div id="vista-tabla" class="m1-subview">
+                <div class="toolbar-m1">
+                    <div class="toolbar-info">
+                        <strong>Instrucciones:</strong> Digita los pesos retenidos en gramos (g). Las mallas resaltadas (<strong>#4, #10, #40 y #200</strong>) son los tamices normativos que definen la clasificación SUCS y AASHTO.
+                    </div>
+                    <div class="toolbar-actions">
+                        <label class="checkbox-cuarteo" title="Actívalo para usar la muestra total de 1258.3g y el cuarteo bajo la malla #4 tal como está en el informe.">
+                            <input type="checkbox" id="check-cuarteo" onchange="alCambiarModoCuarteo()">
+                            Usar método con cuarteo en malla #4 (Exacto al Informe)
+                        </label>
+                        <button class="btn-secondary" onclick="cargarDatosInformeM1()">
+                            Cargar Datos del Informe
+                        </button>
+                        <button class="btn-outline" onclick="limpiarTablaM1()">
+                            Limpiar Tabla
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Parámetros Superiores -->
+                <div class="top-inputs-grid">
+                    <div class="input-group">
+                        <label for="peso-muestra-total">Masa Total Inicial de Muestra (g)</label>
+                        <input type="number" id="peso-muestra-total" step="0.1" oninput="calcularDesdeTabla()">
+                        <small id="nota-masa-total">Con cuarteo: 1258.3 g | Sin cuarteo: suma directa (791.1 g)</small>
+                    </div>
+                    <div class="input-group">
+                        <label for="ll-tabla">Límite Líquido - LL (%)</label>
+                        <input type="number" id="ll-tabla" value="21.6" step="0.1" oninput="calcularDesdeTabla()">
+                    </div>
+                    <div class="input-group">
+                        <label for="lp-tabla">Límite Plástico - LP (%)</label>
+                        <input type="number" id="lp-tabla" value="17.7" step="0.1" oninput="calcularDesdeTabla()">
+                    </div>
+                    <div class="input-group">
+                        <label>Índice de Plasticidad - IP (%)</label>
+                        <input type="text" id="ip-tabla" value="3.9" readonly class="readonly-input">
+                    </div>
+                </div>
+
+                <!-- BLOQUE 1: TABLA GRANULOMÉTRICA (ARRIBA) -->
+                <div class="card-panel">
+                    <div class="panel-header-inline">
+                        <h3>1. Tabla de Análisis Granulométrico por Tamizado</h3>
+                        <span class="legend-highlight">■ Filas en ámbar: Tamices clave de clasificación (#4, #10, #40, #200)</span>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="granulometria-table">
+                            <thead>
+                                <tr>
+                                    <th>Tamiz</th>
+                                    <th>Abertura (mm)</th>
+                                    <th>Peso Retenido (g)</th>
+                                    <th>% Ret. Parcial</th>
+                                    <th>% Ret. Acumulado</th>
+                                    <th>% Que Pasa</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody-tamices">
+                                <!-- Se genera dinámicamente en script.js -->
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th colspan="2">SUMA DE PESOS EN COLUMNA</th>
+                                    <th id="total-peso-ret">791.1 g</th>
+                                    <th id="total-ret-parc">100.0 %</th>
+                                    <th>100.0 %</th>
+                                    <th>0.0 %</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- BLOQUE 2: CURVA GRANULOMÉTRICA (DEBAJO Y A TODO LO ANCHO) -->
+                <div class="card-panel curve-panel-full">
+                    <div class="panel-header-inline">
+                        <h3>2. Curva Granulométrica Semilogarítmica</h3>
+                        <span class="curve-badge">Pasa el cursor sobre cada punto para ver el Tamiz, Abertura (mm) y % Que Pasa</span>
+                    </div>
+
+                    <div class="chart-wrapper-wide">
+                        <canvas id="graficaGranulometrica"></canvas>
+                    </div>
+
+                    <!-- Tarjetas de Diámetros D10, D30, D60 y Coeficientes calculados directo de la tabla -->
+                    <div class="metrics-wide-grid">
+                        <div class="metric-box">
+                            <span>% Grava (> 4.75 mm)</span>
+                            <strong id="res-grava">42.2%</strong>
+                        </div>
+                        <div class="metric-box">
+                            <span>% Arena (4.75 - 0.075 mm)</span>
+                            <strong id="res-arena">45.1%</strong>
+                        </div>
+                        <div class="metric-box">
+                            <span>% Finos (< 0.075 mm)</span>
+                            <strong id="res-finos">12.7%</strong>
+                        </div>
+                        <div class="metric-box highlight-metric">
+                            <span>Diámetro Efectivo (D10)</span>
+                            <strong id="res-d10">-</strong>
+                        </div>
+                        <div class="metric-box highlight-metric">
+                            <span>Diámetro D30</span>
+                            <strong id="res-d30">-</strong>
+                        </div>
+                        <div class="metric-box highlight-metric">
+                            <span>Diámetro D60</span>
+                            <strong id="res-d60">-</strong>
+                        </div>
+                        <div class="metric-box">
+                            <span>Coef. Uniformidad (Cu = D60/D10)</span>
+                            <strong id="res-cu">-</strong>
+                        </div>
+                        <div class="metric-box">
+                            <span>Coef. Curvatura (Cc = D30²/(D60·D10))</span>
+                            <strong id="res-cc">-</strong>
+                        </div>
+                    </div>
+
+                    <div class="image-slot-box">
+                        <!-- IMAGEN SUGERIDA EN MÓDULO 1 -->
+                        <span>📌 Espacio sugerido para imagen: <strong>Carta de Plasticidad de Casagrande o captura de la tabla original del expediente (img/casagrande.jpg)</strong></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SUB-VISTA B: CLASIFICACIÓN POR DATOS DIRECTOS -->
+            <div id="vista-directo" class="m1-subview hidden">
+                <div class="card-panel">
+                    <h3>Ingreso Directo de Parámetros Necesarios para Clasificar</h3>
+                    <p class="subtitle-panel">Ingresa directamente los porcentajes que pasan los 4 tamices normativos y los Límites de Consistencia.</p>
+
+                    <div class="direct-inputs-grid">
+                        <div class="input-group">
+                            <label>% que pasa Tamiz #4 (4.75 mm)</label>
+                            <input type="number" id="dir-p4" value="57.8" min="0" max="100" step="0.1" oninput="calcularDesdeDirecto()">
+                        </div>
+                        <div class="input-group">
+                            <label>% que pasa Tamiz #10 (2.00 mm)</label>
+                            <input type="number" id="dir-p10" value="42.8" min="0" max="100" step="0.1" oninput="calcularDesdeDirecto()">
+                        </div>
+                        <div class="input-group">
+                            <label>% que pasa Tamiz #40 (0.420 mm)</label>
+                            <input type="number" id="dir-p40" value="24.9" min="0" max="100" step="0.1" oninput="calcularDesdeDirecto()">
+                        </div>
+                        <div class="input-group">
+                            <label>% que pasa Tamiz #200 (0.075 mm)</label>
+                            <input type="number" id="dir-p200" value="12.7" min="0" max="100" step="0.1" oninput="calcularDesdeDirecto()">
+                        </div>
+                        <div class="input-group">
+                            <label>Límite Líquido - LL (%)</label>
+                            <input type="number" id="dir-ll" value="21.6" min="0" step="0.1" oninput="calcularDesdeDirecto()">
+                        </div>
+                        <div class="input-group">
+                            <label>Límite Plástico - LP (%)</label>
+                            <input type="number" id="dir-lp" value="17.7" min="0" step="0.1" oninput="calcularDesdeDirecto()">
+                        </div>
+                        <div class="input-group">
+                            <label>Coeficiente Uniformidad (Cu)</label>
+                            <input type="number" id="dir-cu" value="142.0" min="0" step="0.1" oninput="calcularDesdeDirecto()">
+                        </div>
+                        <div class="input-group">
+                            <label>Coeficiente Curvatura (Cc)</label>
+                            <input type="number" id="dir-cc" value="1.18" min="0" step="0.01" oninput="calcularDesdeDirecto()">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RESULTADOS LLAMATIVOS CON DEGRADADOS -->
+            <div class="results-banner">
+                <div class="result-card sucs-card">
+                    <span class="result-label">CLASIFICACIÓN SUCS (ASTM D2487)</span>
+                    <div class="result-symbol" id="out-sucs-simbolo">SM</div>
+                    <div class="result-name" id="out-sucs-nombre">Arena limosa</div>
+                    <ul class="verification-list" id="out-sucs-condiciones"></ul>
+                </div>
+
+                <div class="result-card aashto-card">
+                    <span class="result-label">CLASIFICACIÓN AASHTO (M 145)</span>
+                    <div class="result-symbol" id="out-aashto-simbolo">A-1-a (0)</div>
+                    <div class="result-name" id="out-aashto-nombre">Fragmentos de roca, grava y arena</div>
+                    <ul class="verification-list" id="out-aashto-condiciones"></ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- =================================================================
+             SECCIÓN 2: MÓDULO 2 - PERFIL ESTRATIGRÁFICO, NIVEL FREÁTICO Y ESFUERZOS
+        ================================================================== -->
+        <section id="modulo-2" class="section-block">
+            <div class="section-header">
+                <div>
+                    <span class="section-badge">SECCIÓN 02</span>
+                    <h2>Módulo 2: Perfil Estratigráfico, Nivel Freático y Esfuerzos</h2>
+                </div>
+                <div class="toolbar-actions">
+                    <button class="btn-secondary" onclick="cargarDatosInformeM2()">
+                        Restaurar Datos del Informe (Calicata C-1)
+                    </button>
+                </div>
+            </div>
+
+            <!-- BARRA DE CONFIGURACIÓN: NIVEL FREÁTICO Y PESO UNITARIO -->
+            <div class="toolbar-m1">
+                <div class="toolbar-info">
+                    <strong>Lógica Estratigráfica:</strong> Edita el inicio (admite valores negativos o positivos) y el fin del <strong>Estrato 1</strong>. Todo estrato siguiente iniciará automáticamente donde termina el anterior.
+                </div>
+                <div class="toolbar-actions">
+                    <label class="checkbox-cuarteo">
+                        <input type="checkbox" id="m2-usar-gamma-unico" checked onchange="alternarModoGammaM2()">
+                        Usar un solo Peso Unitario global (γ = 1.60 Tn/m³)
+                    </label>
+                    <label class="checkbox-cuarteo">
+                        <input type="checkbox" id="m2-tiene-nf" checked onchange="calcularModulo2()">
+                        Incluir Nivel Freático (Agua)
+                    </label>
+                </div>
+            </div>
+
+            <!-- PARÁMETROS GENERALES ALINEADOS -->
+            <div class="top-inputs-grid aligned-inputs-grid">
+                <div class="input-group" id="grupo-gamma-global">
+                    <label for="m2-gamma-global">Peso Unitario Único γ (Tn/m³)</label>
+                    <input type="number" id="m2-gamma-global" value="1.60" step="0.05" oninput="sincronizarGammaGlobalM2()">
+                    <small>Se aplica a todos los estratos si está activo</small>
+                </div>
+                <div class="input-group" id="grupo-nf-prof">
+                    <label for="m2-nf-prof">Profundidad Nivel Freático Zw (m)</label>
+                    <input type="number" id="m2-nf-prof" value="1.80" step="0.1" oninput="calcularModulo2()">
+                    <small>Cota donde inicia el agua subterránea</small>
+                </div>
+                <div class="input-group">
+                    <label for="m2-gamma-agua">Peso Específico Agua γw (Tn/m³)</label>
+                    <input type="number" id="m2-gamma-agua" value="1.00" step="0.01" oninput="calcularModulo2()">
+                    <small>Valor estándar del agua: 1.00 Tn/m³</small>
+                </div>
+                <div class="input-group">
+                    <label for="m2-z-eval">Profundidad a Evaluar Df (m)</label>
+                    <input type="number" id="m2-z-eval" value="2.00" step="0.1" oninput="calcularModulo2()">
+                    <small>Cota de apoyo de la cimentación</small>
+                </div>
+            </div>
+
+            <!-- EDITOR DINÁMICO DE ESTRATOS + COLUMNA ESTRATIGRÁFICA VISUAL (RESTAURADO) -->
+            <div class="m2-top-layout">
+                <div class="card-panel m2-panel-flex">
+                    <div class="panel-header-inline">
+                        <h3>1. Configuración de Estratos</h3>
+                        <button class="btn-add-stratum" onclick="agregarEstratoM2()">+ Agregar Estrato</button>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="granulometria-table" id="tabla-estratos-m2">
+                            <thead>
+                                <tr>
+                                    <th>Estrato</th>
+                                    <th>Prof. Inicial (m)</th>
+                                    <th>Prof. Final (m)</th>
+                                    <th>Espesor (m)</th>
+                                    <th>γ (Tn/m³)</th>
+                                    <th>Color</th>
+                                    <th>Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody-estratos-m2">
+                                <!-- Se genera dinámicamente desde script.js -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="m2-helper-note">
+                        💡 Puedes ingresar profundidades iniciales negativas (ej. -1.00 m) o positivas. El espesor y los esfuerzos se recalculan al instante.
+                    </p>
+                </div>
+
+                <div class="card-panel m2-panel-flex">
+                    <div class="panel-header-inline">
+                        <h3>2. Perfil Estratigráfico Visual</h3>
+                        <span class="curve-badge" id="badge-prof-total">Cota: 0.00 m a 2.50 m</span>
+                    </div>
+                    <div class="stratigraphy-viewer" id="contenedor-perfil-visual">
+                        <!-- Se dibuja dinámicamente a escala en script.js -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- LAS 3 GRÁFICAS DE ESFUERZOS (TOTAL, POROS Y EFECTIVO) -->
+            <div class="card-panel curve-panel-full">
+                <div class="panel-header-inline">
+                    <h3>3. Diagramas de Variación de Esfuerzos con la Profundidad</h3>
+                    <span class="legend-highlight">Conversión: 1 Tn/m² = 0.10 kg/cm² ≈ 9.81 kPa</span>
+                </div>
+
+                <div class="m2-charts-grid">
+                    <div class="m2-chart-card">
+                        <h4>Esfuerzo Total (σ)</h4>
+                        <p class="chart-formula">σ = Σ (γi · hi)</p>
+                        <div class="m2-chart-box">
+                            <canvas id="chartEsfuerzoTotal"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="m2-chart-card">
+                        <h4>Presión de Poros (u)</h4>
+                        <p class="chart-formula">u = γw · (Z - Zw)</p>
+                        <div class="m2-chart-box">
+                            <canvas id="chartPresionPoros"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="m2-chart-card">
+                        <h4>Esfuerzo Efectivo (σ')</h4>
+                        <p class="chart-formula">σ' = σ - u</p>
+                        <div class="m2-chart-box">
+                            <canvas id="chartEsfuerzoEfectivo"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TABLA RESUMEN DE ESFUERZOS -->
+                <div class="table-responsive" style="margin-top: 1.25rem;">
+                    <table class="granulometria-table">
+                        <thead>
+                            <tr>
+                                <th>Profundidad Z (m)</th>
+                                <th>Punto de Control en el Perfil</th>
+                                <th>Esfuerzo Total σ (Tn/m²)</th>
+                                <th>Presión de Poros u (Tn/m²)</th>
+                                <th>Esfuerzo Efectivo σ' (Tn/m²)</th>
+                                <th>Equivalente σ' (kg/cm²)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-resultados-esfuerzos">
+                            <!-- Calculado automáticamente -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- BANNER DE RESULTADOS 100% DINÁMICOS -->
+            <div class="results-banner">
+                <div class="result-card sucs-card">
+                    <span class="result-label" id="lbl-cota-evaluada">ESTADO DE ESFUERZOS EN COTA EVALUADA (Df = 2.00 m)</span>
+                    <div class="result-symbol" id="out-m2-efectivo">3.00 Tn/m²</div>
+                    <div class="result-name" id="out-m2-resumen-cota">Esfuerzo Efectivo (σ') soportado por el esqueleto sólido del suelo</div>
+                    <ul class="verification-list" id="out-m2-desglose"></ul>
+                </div>
+
+                <div class="result-card aashto-card">
+                    <span class="result-label">ANÁLISIS AUTOMÁTICO DE RESISTENCIA Y NIVEL FREÁTICO</span>
+                    <div class="result-symbol" id="out-m2-reduccion">-6.3% por Agua</div>
+                    <div class="result-name" id="out-m2-veredicto">Impacto de la Presión de Poros en la Cimentación</div>
+                    <ul class="verification-list" id="out-m2-recomendaciones"></ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- =================================================================
+             SECCIÓN 3: MÓDULO 3 - PERMEABILIDAD Y FLUJO HIDRÁULICO (LEY DE DARCY)
+        ================================================================== -->
+        <section id="modulo-3" class="section-block">
+            <div class="section-header">
+                <div>
+                    <span class="section-badge">SECCIÓN 03</span>
+                    <h2>Módulo 3: Permeabilidad y Flujo Hidráulico (Ley de Darcy)</h2>
+                </div>
+                <div class="toolbar-actions">
+                    <button class="btn-secondary" onclick="cargarDatosInformeM3()">
+                        Cargar Caso del Informe (SM | Zapata 1.50×1.50 m)
+                    </button>
+                </div>
+            </div>
+
+            <!-- BARRA DE CONEXIÓN CON LA BASE DE DATOS Y EL MÓDULO 1 -->
+            <div class="toolbar-m1">
+                <div class="toolbar-info">
+                    <strong>Conexión Inteligente con Base de Datos:</strong> Como el expediente no incluye ensayo de permeabilidad, el sistema adopta automáticamente el coeficiente <strong>k recomendado (cm/s)</strong> según la clasificación SUCS obtenida en el Módulo 1 (<strong id="m3-badge-sucs-detectado">SM</strong>).
+                </div>
+                <div class="toolbar-actions">
+                    <label class="checkbox-cuarteo">
+                        <input type="checkbox" id="m3-auto-sucs" checked onchange="alCambiarModoAutoSUCSM3()">
+                        Adoptar k automático según clasificación del Módulo 1
+                    </label>
+                    <label class="checkbox-cuarteo">
+                        <input type="checkbox" id="m3-modo-gradiente-directo" onchange="alternarModoGradienteM3()">
+                        Ingresar gradiente hidráulico (i) directamente
+                    </label>
+                </div>
+            </div>
+
+            <!-- PARÁMETROS DE ENTRADA ALINEADOS (DATOS DE ENTRADA) -->
+            <div class="top-inputs-grid aligned-inputs-grid">
+                <div class="input-group">
+                    <label for="m3-select-suelo">Suelo en Base de Datos (SUCS)</label>
+                    <select id="m3-select-suelo" class="m3-select-input" onchange="alSeleccionarSueloDBM3()" disabled>
+                        <!-- Se llena desde la Base de Datos en script.js -->
+                    </select>
+                    <small id="m3-rango-db-nota">Rango típico: 1.0e-5 a 1.0e-3 cm/s</small>
+                </div>
+
+                <div class="input-group">
+                    <label for="m3-k-input">Coeficiente de Permeabilidad k (cm/s)</label>
+                    <input type="number" id="m3-k-input" value="0.0005" step="0.0001" min="0.000000001" oninput="alEditarKManualM3()">
+                    <small id="m3-k-notacion">Notación científica: 5.00 × 10⁻⁴ cm/s</small>
+                </div>
+
+                <div class="input-group" id="grupo-m3-dh">
+                    <label for="m3-dh-input">Carga Hidráulica Δh = Df - Zw (m)</label>
+                    <input type="number" id="m3-dh-input" value="0.20" step="0.05" min="0" oninput="calcularModulo3()">
+                    <small>Desnivel de agua hacia la excavación (Informe: 2.00 - 1.80 = 0.20 m)</small>
+                </div>
+
+                <div class="input-group" id="grupo-m3-l-flujo">
+                    <label for="m3-l-flujo">Longitud de Filtración L (m)</label>
+                    <input type="number" id="m3-l-flujo" value="0.80" step="0.10" min="0.1" oninput="calcularModulo3()">
+                    <small>Recorrido del flujo bajo el borde de excavación (m)</small>
+                </div>
+
+                <div class="input-group">
+                    <label for="m3-i-input">Gradiente Hidráulico (i = Δh / L)</label>
+                    <input type="number" id="m3-i-input" value="0.25" step="0.05" min="0" readonly class="readonly-input" oninput="calcularModulo3()">
+                    <small id="m3-i-nota">Calculado automáticamente: Δh / L (Adimensional)</small>
+                </div>
+
+                <div class="input-group">
+                    <label for="m3-ancho-b">Ancho de Excavación / Zapata B (m)</label>
+                    <input type="number" id="m3-ancho-b" value="1.50" step="0.10" min="0.3" oninput="calcularModulo3()">
+                    <small>Ancho de cimentación del informe: B = 1.50 m</small>
+                </div>
+
+                <div class="input-group">
+                    <label for="m3-largo-l">Largo de Excavación / Zapata Lz (m)</label>
+                    <input type="number" id="m3-largo-l" value="1.50" step="0.10" min="0.3" oninput="calcularModulo3()">
+                    <small>Área basal de ingreso A = B × Lz (<strong id="m3-area-texto">2.25 m²</strong>)</small>
+                </div>
+
+                <div class="input-group">
+                    <label for="m3-porosidad-n">Porosidad Efectiva Estimada n</label>
+                    <input type="number" id="m3-porosidad-n" value="0.35" step="0.02" min="0.10" max="0.60" oninput="calcularModulo3()">
+                    <small>Para velocidad real intersticial: vs = v / n</small>
+                </div>
+            </div>
+
+            <!-- BLOQUE 1: BASE DE DATOS DE PERMEABILIDAD A TODO LO ANCHO (CLARA Y SIN RECORTES) -->
+            <div class="card-panel">
+                <div class="panel-header-inline">
+                    <h3>1. Base de Datos de Permeabilidad Recomendada según Clasificación SUCS</h3>
+                    <span class="legend-highlight">■ Fila resaltada: Suelo adoptado actualmente para el cálculo</span>
+                </div>
+                <div class="table-responsive">
+                    <table class="granulometria-table m3-db-table" id="tabla-db-permeabilidad">
+                        <thead>
+                            <tr>
+                                <th>Código SUCS</th>
+                                <th>Descripción Geotécnica del Suelo</th>
+                                <th>Rango Típico de k (cm/s)</th>
+                                <th>k Recomendado (Científica)</th>
+                                <th>k Recomendado (Decimal cm/s)</th>
+                                <th>Grado de Permeabilidad</th>
+                                <th>Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-db-permeabilidad">
+                            <!-- Se genera dinámicamente desde script.js -->
+                        </tbody>
+                    </table>
+                </div>
+                <p class="m2-helper-note">
+                    💡 Si cambias los pesos en el Módulo 1, esta tabla selecciona automáticamente la nueva clasificación SUCS. También puedes hacer clic en <strong>"Adoptar k"</strong> en cualquier fila para simular otro tipo de terreno.
+                </p>
+            </div>
+
+            <!-- BLOQUE 2: ESQUEMA DE FILTRACIÓN + RESULTADOS RÁPIDOS COMPACTOS (SIN ESPACIO SOBRANTE) -->
+            <div class="card-panel curve-panel-full">
+                <div class="panel-header-inline">
+                    <h3>2. Esquema de Filtración hacia la Zona de Cimentación y Resultados de Flujo</h3>
+                    <span class="curve-badge" id="m3-badge-esquema">Ley de Darcy: v = k · i</span>
+                </div>
+
+                <div class="m3-flow-split-layout">
+                    <!-- Izquierda: Esquema visual compacto y proporcionado -->
+                    <div class="seepage-visualizer" id="m3-esquema-flujo">
+                        <!-- Se dibuja dinámicamente en script.js -->
+                    </div>
+
+                    <!-- Derecha: Las 6 tarjetas de velocidad y caudal alineadas al lado del esquema -->
+                    <div class="m3-metrics-grid">
+                        <div class="metric-box highlight-metric">
+                            <span>Velocidad de Darcy (v = k · i)</span>
+                            <strong id="m3-out-v-cms">1.25 × 10⁻⁴ cm/s</strong>
+                        </div>
+                        <div class="metric-box highlight-metric">
+                            <span>Velocidad de Avance Diario</span>
+                            <strong id="m3-out-v-mdia">0.108 m/día</strong>
+                        </div>
+                        <div class="metric-box">
+                            <span>Velocidad Real en Poros (vs = v/n)</span>
+                            <strong id="m3-out-vs-cms">3.57 × 10⁻⁴ cm/s</strong>
+                        </div>
+                        <div class="metric-box highlight-metric">
+                            <span>Caudal a la Cimentación (Q = v · A)</span>
+                            <strong id="m3-out-q-lmin">0.169 L/min</strong>
+                        </div>
+                        <div class="metric-box">
+                            <span>Volumen Acumulado por Día</span>
+                            <strong id="m3-out-q-mdia">0.243 m³/día</strong>
+                        </div>
+                        <div class="metric-box">
+                            <span>Tiempo para inundar 10 cm de zapata</span>
+                            <strong id="m3-out-tiempo-10cm">22.2 horas</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BLOQUE 3: GRÁFICA COMPARATIVA DE VELOCIDAD DE FLUJO Y ESCALA DE DRENAJE -->
+            <div class="card-panel curve-panel-full">
+                <div class="panel-header-inline">
+                    <h3>3. Curva de Velocidad de Filtración (v) según el Gradiente Hidráulico (i)</h3>
+                    <span class="curve-badge">Muestra qué tan rápido aumenta la entrada de agua si sube el nivel freático o la excavación es más profunda</span>
+                </div>
+
+                <div class="chart-wrapper-wide" style="height: 340px;">
+                    <canvas id="chartDarcyFlujo"></canvas>
+                </div>
+            </div>
+
+            <!-- BANNER DE RESULTADOS FINALES Y DECISIÓN GEOTÉCNICA -->
+            <div class="results-banner">
+                <div class="result-card sucs-card">
+                    <span class="result-label" id="m3-lbl-resumen">VELOCIDAD DE FLUJO MEDIANTE LEY DE DARCY (v = k · i)</span>
+                    <div class="result-symbol" id="m3-card-velocidad">0.108 m/día</div>
+                    <div class="result-name" id="m3-card-subtitulo">Equivalente a 1.25 × 10⁻⁴ cm/s (0.45 cm/hora) en Arena Limosa (SM)</div>
+                    <ul class="verification-list" id="m3-lista-calculos"></ul>
+                </div>
+
+                <div class="result-card aashto-card">
+                    <span class="result-label">INGRESO DE AGUA A LA CIMENTACIÓN Y CONTROL DE EXCAVACIÓN</span>
+                    <div class="result-symbol" id="m3-card-caudal">0.169 L/min</div>
+                    <div class="result-name" id="m3-card-veredicto">Caudal total infiltrado en la base de excavación (A = 2.25 m²)</div>
+                    <ul class="verification-list" id="m3-lista-recomendaciones"></ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>Laboratorio Virtual de Mecánica de Suelos | Sección 6I - Grupo 2</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

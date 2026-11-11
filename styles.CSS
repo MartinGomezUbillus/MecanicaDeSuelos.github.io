@@ -1,0 +1,1134 @@
+:root {
+    --bg-dark: #0f172a;
+    --bg-card-dark: #1e293b;
+    --primary: #0ea5e9;
+    --accent: #f59e0b;
+    --accent-hover: #d97706;
+    --text-main: #1e293b;
+    --text-muted: #64748b;
+    --bg-light: #f1f5f9;
+    --white: #ffffff;
+    --border: #e2e8f0;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-light);
+    color: var(--text-main);
+}
+
+/* NAVBAR */
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(8px);
+    border-bottom: 2px solid var(--accent);
+    padding: 0.9rem 2rem;
+}
+
+.nav-container {
+    max-width: 1320px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.logo-badge {
+    background: var(--accent);
+    color: var(--bg-dark);
+    font-weight: 800;
+    padding: 0.3rem 0.65rem;
+    border-radius: 6px;
+    letter-spacing: 1px;
+}
+
+.logo-text {
+    color: var(--white);
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.nav-links {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.nav-links a {
+    color: #cbd5e1;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.nav-links a:hover {
+    color: var(--accent);
+}
+
+/* HERO */
+.hero-section {
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+    color: var(--white);
+    padding: 3.5rem 2rem 4rem;
+    border-bottom: 4px solid var(--accent);
+}
+
+.hero-content {
+    max-width: 1320px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.tag-course {
+    display: inline-block;
+    background: rgba(245, 158, 11, 0.2);
+    color: #fbbf24;
+    border: 1px solid #f59e0b;
+    padding: 0.35rem 1rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.hero-content h1 {
+    font-size: 2.4rem;
+    font-weight: 800;
+    margin-bottom: 0.75rem;
+}
+
+.hero-content > p {
+    color: #cbd5e1;
+    max-width: 720px;
+    margin: 0 auto 2.5rem;
+    font-size: 1.05rem;
+}
+
+.modules-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    text-align: left;
+}
+
+.module-card {
+    background: var(--bg-card-dark);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 14px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.module-card:hover, .module-card.active-module {
+    transform: translateY(-6px);
+    border-color: var(--accent);
+    box-shadow: 0 16px 30px rgba(0, 0, 0, 0.35);
+}
+
+.module-img-placeholder {
+    height: 110px;
+    background: linear-gradient(120deg, #0284c7, #0f172a);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 1.25rem;
+    letter-spacing: 2px;
+    color: var(--accent);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.module-card-body {
+    padding: 1.4rem;
+}
+
+.module-card-body h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    color: var(--white);
+}
+
+.module-card-body p {
+    font-size: 0.9rem;
+    color: #94a3b8;
+    line-height: 1.5;
+    margin-bottom: 1.2rem;
+}
+
+.btn-card {
+    display: inline-block;
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
+/* CONTENEDOR PRINCIPAL */
+.main-container {
+    max-width: 1320px;
+    margin: 2.5rem auto;
+    padding: 0 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+.section-block {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+    border: 1px solid var(--border);
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding-bottom: 1.25rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid var(--bg-light);
+}
+
+.section-badge {
+    background: #e0f2fe;
+    color: #0369a1;
+    font-weight: 700;
+    font-size: 0.75rem;
+    padding: 0.25rem 0.65rem;
+    border-radius: 4px;
+}
+
+.section-header h2 {
+    font-size: 1.5rem;
+    margin-top: 0.35rem;
+    color: var(--bg-dark);
+}
+
+/* SELECTOR DE MODO */
+.mode-switch {
+    display: flex;
+    background: var(--bg-light);
+    padding: 0.3rem;
+    border-radius: 10px;
+    gap: 0.35rem;
+}
+
+.mode-btn {
+    border: none;
+    background: transparent;
+    padding: 0.65rem 1.1rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.88rem;
+    cursor: pointer;
+    color: var(--text-muted);
+    transition: all 0.2s;
+}
+
+.mode-btn.active {
+    background: var(--bg-dark);
+    color: var(--white);
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.2);
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* TOOLBAR */
+.toolbar-m1 {
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--primary);
+    padding: 1rem 1.25rem;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+}
+
+.toolbar-info {
+    font-size: 0.9rem;
+    color: var(--text-main);
+    max-width: 620px;
+}
+
+.toolbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.checkbox-cuarteo {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #0369a1;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    cursor: pointer;
+}
+
+.btn-secondary {
+    background: var(--accent);
+    color: var(--bg-dark);
+    border: none;
+    padding: 0.55rem 1rem;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+
+.btn-secondary:hover {
+    background: var(--accent-hover);
+}
+
+.btn-outline {
+    background: var(--white);
+    color: var(--text-main);
+    border: 1px solid #cbd5e1;
+    padding: 0.55rem 1rem;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+
+/* INPUTS */
+.top-inputs-grid, .direct-inputs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.input-group label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+.input-group input {
+    padding: 0.6rem 0.75rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.input-group small {
+    font-size: 0.74rem;
+    color: var(--text-muted);
+}
+
+.readonly-input {
+    background: #e2e8f0;
+    color: #0f172a;
+}
+
+/* PANELES DE TABLA Y CURVA DEBAJO */
+.card-panel {
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.4rem;
+}
+
+.curve-panel-full {
+    margin-top: 1.75rem;
+}
+
+.panel-header-inline {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.panel-header-inline h3 {
+    font-size: 1.15rem;
+    color: var(--bg-dark);
+}
+
+.legend-highlight {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #b45309;
+    background: #fef3c7;
+    padding: 0.3rem 0.7rem;
+    border-radius: 6px;
+    border: 1px solid #fde68a;
+}
+
+.curve-badge {
+    font-size: 0.82rem;
+    color: #0369a1;
+    background: #e0f2fe;
+    padding: 0.3rem 0.7rem;
+    border-radius: 6px;
+    font-weight: 600;
+}
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+.granulometria-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+    background: var(--white);
+}
+
+.granulometria-table th, .granulometria-table td {
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--border);
+    text-align: center;
+}
+
+.granulometria-table thead th {
+    background: var(--bg-dark);
+    color: var(--white);
+}
+
+.granulometria-table tbody tr:nth-child(even) td {
+    background-color: #f8fafc;
+}
+
+/* Resalta las 4 mallas clave (#4, #10, #40 y #200) sin importar si la fila es par o impar */
+.granulometria-table tbody tr.highlight-sieve td {
+    background-color: #fef3c7 !important;
+    color: #92400e;
+    font-weight: 700;
+    border-top: 1.5px solid #f59e0b;
+    border-bottom: 1.5px solid #f59e0b;
+}
+
+.granulometria-table tbody tr.highlight-sieve td:first-child {
+    border-left: 5px solid #f59e0b;
+}
+
+/* Elimina las flechitas (triangulitos arriba/abajo) de todos los inputs numéricos */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+.peso-input {
+    width: 95px;
+    padding: 0.3rem 0.45rem;
+    text-align: right;
+    border: 1px solid #94a3b8;
+    border-radius: 4px;
+    font-weight: 600;
+}
+
+/* GRÁFICA ANCHA DEBAJO DE LA TABLA */
+.chart-wrapper-wide {
+    position: relative;
+    width: 100%;
+    height: 430px;
+    background: var(--white);
+    padding: 1.25rem;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    margin-bottom: 1.25rem;
+    box-shadow: inset 0 2px 6px rgba(15, 23, 42, 0.03);
+}
+
+.metrics-wide-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 0.85rem;
+    margin-bottom: 1.25rem;
+}
+
+.metric-box {
+    background: var(--white);
+    border: 1px solid var(--border);
+    padding: 0.8rem;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.metric-box.highlight-metric {
+    border-left: 4px solid var(--primary);
+    background: #f0f9ff;
+}
+
+.metric-box span {
+    display: block;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-bottom: 0.25rem;
+}
+
+.metric-box strong {
+    font-size: 1.05rem;
+    color: var(--bg-dark);
+}
+
+/* TARJETAS DE CLASIFICACIÓN CON DEGRADADOS */
+.results-banner {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.75rem;
+}
+
+.result-card {
+    border-radius: 12px;
+    padding: 1.5rem;
+    color: var(--white);
+}
+
+.sucs-card {
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+    border-left: 6px solid var(--accent);
+}
+
+.aashto-card {
+    background: linear-gradient(135deg, #064e3b 0%, #047857 100%);
+    border-left: 6px solid #34d399;
+}
+
+.result-label {
+    font-size: 0.78rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    opacity: 0.85;
+    font-weight: 700;
+}
+
+.result-symbol {
+    font-size: 2.4rem;
+    font-weight: 800;
+    margin: 0.3rem 0;
+    color: #fbbf24;
+}
+
+.result-name {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.verification-list {
+    list-style: none;
+    background: rgba(0, 0, 0, 0.25);
+    padding: 0.9rem 1rem;
+    border-radius: 8px;
+    font-size: 0.84rem;
+    line-height: 1.6;
+}
+
+.verification-list li::before {
+    content: "✔ ";
+    color: #fbbf24;
+    font-weight: bold;
+}
+
+.image-slot-box {
+    border: 2px dashed #94a3b8;
+    background: #f1f5f9;
+    padding: 1.1rem;
+    border-radius: 8px;
+    text-align: center;
+    color: #475569;
+    font-size: 0.85rem;
+}
+
+.placeholder-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 0.6fr;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.data-preview-list {
+    margin: 0.75rem 0 1rem 1.2rem;
+    line-height: 1.7;
+}
+
+.next-step-note {
+    color: #0369a1;
+    font-weight: 500;
+    font-size: 0.92rem;
+}
+
+.footer {
+    text-align: center;
+    padding: 2rem;
+    background: var(--bg-dark);
+    color: #94a3b8;
+    font-size: 0.88rem;
+    margin-top: 3rem;
+}
+
+/* ============================================================================
+   ESTILOS DEL MÓDULO 2: ALINEACIÓN, TABLA COMPACTA Y PERFIL DE ANCHO COMPLETO
+============================================================================ */
+.aligned-inputs-grid {
+    grid-template-columns: repeat(4, 1fr);
+    align-items: stretch;
+}
+
+@media (max-width: 980px) {
+    .aligned-inputs-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 560px) {
+    .aligned-inputs-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.aligned-inputs-grid .input-group {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    padding: 0.85rem 1rem;
+    border-radius: 10px;
+}
+
+.aligned-inputs-grid .input-group label {
+    min-height: 2.2rem;
+    display: flex;
+    align-items: center;
+}
+
+.aligned-inputs-grid .input-group input {
+    width: 100%;
+    height: 40px;
+    margin: 0.25rem 0;
+}
+
+.aligned-inputs-grid .input-group small {
+    min-height: 1.8rem;
+    display: block;
+}
+
+/* Distribución 50% / 50% sin huecos vacíos debajo de la tabla */
+.m2-top-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    align-items: stretch;
+}
+
+@media (max-width: 1024px) {
+    .m2-top-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+.m2-panel-flex {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.btn-add-stratum {
+    background: #0284c7;
+    color: var(--white);
+    border: none;
+    padding: 0.5rem 0.95rem;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-add-stratum:hover {
+    background: #0369a1;
+}
+
+.btn-delete-stratum {
+    background: #fee2e2;
+    color: #b91c1c;
+    border: 1px solid #fca5a5;
+    padding: 0.3rem 0.65rem;
+    border-radius: 5px;
+    font-weight: 700;
+    font-size: 0.78rem;
+    cursor: pointer;
+}
+
+.btn-delete-stratum:hover:not(:disabled) {
+    background: #fecaca;
+}
+
+.btn-delete-stratum:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.stratum-num-input {
+    width: 88px;
+    padding: 0.38rem 0.5rem;
+    text-align: right;
+    border: 1px solid #94a3b8;
+    border-radius: 5px;
+    font-weight: 700;
+    font-size: 0.86rem;
+}
+
+.stratum-num-input.locked-input {
+    background: #e2e8f0;
+    color: #475569;
+    border-color: #cbd5e1;
+    cursor: not-allowed;
+}
+
+.m2-helper-note {
+    margin-top: 0.85rem;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+}
+
+/* Columna Estratigráfica Visual al 100% de ancho y altura adaptable */
+.stratigraphy-viewer {
+    position: relative;
+    width: 100%;
+    flex: 1;
+    min-height: 240px;
+    background: var(--white);
+    border: 2px solid var(--bg-dark);
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.stratum-layer-visual {
+    position: relative;
+    width: 100%;
+    border-bottom: 2px dashed rgba(15, 23, 42, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.25rem 0.75rem;
+    transition: height 0.25s ease;
+    overflow: hidden;
+}
+
+.stratum-layer-visual:last-child {
+    border-bottom: none;
+}
+
+.stratum-layer-pill {
+    font-weight: 700;
+    font-size: 0.82rem;
+    color: #0f172a;
+    background: rgba(255, 255, 255, 0.88);
+    padding: 0.2rem 0.7rem;
+    border-radius: 6px;
+    border: 1px solid rgba(15, 23, 42, 0.15);
+    z-index: 6;
+    white-space: nowrap;
+}
+
+.depth-marker-label {
+    position: absolute;
+    left: 8px;
+    font-size: 0.72rem;
+    font-weight: 800;
+    background: #0f172a;
+    color: #ffffff;
+    padding: 2px 6px;
+    border-radius: 4px;
+    z-index: 7;
+}
+
+/* Línea de Nivel Freático en el Perfil */
+.water-table-line {
+    position: absolute;
+    left: 0;
+    right: 0;
+    border-top: 3px solid #0284c7;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.water-table-badge {
+    position: absolute;
+    right: 10px;
+    top: -22px;
+    background: #0284c7;
+    color: #ffffff;
+    font-size: 0.74rem;
+    font-weight: 800;
+    padding: 2px 8px;
+    border-radius: 4px;
+    box-shadow: 0 2px 6px rgba(2, 132, 199, 0.35);
+}
+
+.water-zone-shade {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+        -45deg,
+        rgba(14, 165, 233, 0.12),
+        rgba(14, 165, 233, 0.12) 8px,
+        rgba(14, 165, 233, 0.22) 8px,
+        rgba(14, 165, 233, 0.22) 16px
+    );
+    pointer-events: none;
+    z-index: 4;
+}
+
+/* Grilla de las 3 Gráficas de Esfuerzos */
+.m2-charts-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+}
+
+@media (max-width: 980px) {
+    .m2-charts-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.m2-chart-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem;
+    text-align: center;
+}
+
+.m2-chart-card h4 {
+    font-size: 1rem;
+    color: var(--bg-dark);
+    margin-bottom: 0.2rem;
+}
+
+.chart-formula {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+}
+
+.m2-chart-box {
+    position: relative;
+    height: 310px;
+    width: 100%;
+}
+
+/* ============================================================================
+   ESTILOS DEL MÓDULO 3: TABLA DE PERMEABILIDAD ANCHA Y ESQUEMA SIN ESPACIO VACÍO
+============================================================================ */
+.m3-select-input {
+    width: 100%;
+    height: 40px;
+    padding: 0.45rem 0.65rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    background-color: var(--white);
+    color: var(--text-main);
+    margin: 0.25rem 0;
+}
+
+.m3-select-input:disabled {
+    background-color: #e2e8f0;
+    color: #334155;
+    cursor: not-allowed;
+}
+
+/* Tabla de Base de Datos de Permeabilidad clara y sin recortes */
+.m3-db-table th,
+.m3-db-table td {
+    padding: 0.55rem 0.8rem;
+    vertical-align: middle;
+}
+
+.k-cell-nowrap {
+    white-space: nowrap;
+    font-size: 0.9rem;
+}
+
+.k-cell-decimal {
+    white-space: nowrap;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 700;
+    font-size: 0.86rem;
+    color: #0369a1;
+}
+
+.sucs-pill-table {
+    display: inline-block;
+    background: var(--bg-dark);
+    color: var(--accent);
+    font-weight: 800;
+    padding: 0.2rem 0.55rem;
+    border-radius: 5px;
+    font-size: 0.82rem;
+    letter-spacing: 0.5px;
+}
+
+.perm-grade-badge {
+    display: inline-block;
+    background: #f1f5f9;
+    color: #334155;
+    padding: 0.2rem 0.55rem;
+    border-radius: 4px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    border: 1px solid #cbd5e1;
+}
+
+.btn-use-k {
+    background: var(--bg-dark);
+    color: var(--white);
+    border: none;
+    padding: 0.35rem 0.75rem;
+    border-radius: 5px;
+    font-weight: 700;
+    font-size: 0.78rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+
+.btn-use-k:hover {
+    background: var(--primary);
+}
+
+.btn-use-k.active-k-btn {
+    background: #d97706;
+    color: var(--white);
+}
+
+/* Distribución lado a lado entre el Esquema de Filtración y las 6 Tarjetas de Resultados */
+.m3-flow-split-layout {
+    display: grid;
+    grid-template-columns: 1.25fr 1fr;
+    gap: 1.25rem;
+    align-items: stretch;
+}
+
+@media (max-width: 980px) {
+    .m3-flow-split-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+.m3-metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+    align-content: stretch;
+}
+
+.m3-metrics-grid .metric-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0.85rem;
+}
+
+/* Esquema de Filtración compacto y sin espacios muertos */
+.seepage-visualizer {
+    background: var(--white);
+    border: 2px solid var(--bg-dark);
+    border-radius: 10px;
+    padding: 0.9rem;
+    display: flex;
+    align-items: stretch;
+}
+
+.seepage-diagram-box {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1.15fr;
+    gap: 0.85rem;
+    align-items: stretch;
+}
+
+@media (max-width: 640px) {
+    .seepage-diagram-box {
+        grid-template-columns: 1fr;
+    }
+}
+
+.seepage-soil-side {
+    background: linear-gradient(180deg, #fef3c7 0%, #bae6fd 38%, #7dd3fc 100%);
+    border: 1.5px solid #0284c7;
+    border-radius: 8px;
+    padding: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 0.55rem;
+}
+
+.seepage-wt-tag {
+    background: #0284c7;
+    color: var(--white);
+    font-size: 0.76rem;
+    font-weight: 800;
+    padding: 0.35rem 0.6rem;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.seepage-water-mass {
+    background: rgba(255, 255, 255, 0.92);
+    border-radius: 6px;
+    padding: 0.65rem 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    font-size: 0.82rem;
+    color: var(--bg-dark);
+    border: 1px solid rgba(2, 132, 199, 0.25);
+}
+
+.seepage-soil-title {
+    font-weight: 800;
+    color: #0369a1;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 0.25rem;
+    margin-bottom: 0.1rem;
+}
+
+.seepage-data-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.seepage-flow-direction {
+    background: rgba(15, 23, 42, 0.85);
+    color: #38bdf8;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-align: center;
+    padding: 0.35rem 0.5rem;
+    border-radius: 5px;
+}
+
+.seepage-pit-center {
+    border: 2px dashed #475569;
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    background: #f8fafc;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+}
+
+.seepage-pit-header {
+    padding: 0.55rem 0.65rem;
+    text-align: center;
+    font-size: 0.78rem;
+    color: var(--text-main);
+    background: #e2e8f0;
+    border-bottom: 1px solid #cbd5e1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+
+.seepage-pit-header span {
+    font-size: 0.7rem;
+    font-weight: 800;
+    color: #475569;
+    letter-spacing: 0.5px;
+}
+
+.seepage-pit-wall {
+    padding: 0.6rem 1.2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footing-sketch-block {
+    width: 100%;
+    background: #94a3b8;
+    color: var(--bg-dark);
+    border: 2px solid #475569;
+    border-radius: 4px;
+    padding: 0.45rem;
+    text-align: center;
+    font-size: 0.76rem;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+}
+
+.seepage-pit-bottom {
+    padding: 0.65rem;
+    text-align: center;
+    background: #e0f2fe;
+    border-top: 3px solid #0284c7;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.seepage-arrows {
+    font-size: 0.78rem;
+    font-weight: 800;
+    color: #0369a1;
+}
+
+.seepage-q-pill {
+    background: var(--bg-dark);
+    color: var(--white);
+    padding: 0.4rem 0.65rem;
+    border-radius: 6px;
+    font-size: 0.8rem;
+}
